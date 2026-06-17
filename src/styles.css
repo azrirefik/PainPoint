@@ -1,0 +1,847 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+@import "leaflet/dist/leaflet.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design system definition.
+ *
+ * The @theme inline block maps CSS custom properties to Tailwind utility
+ * classes (e.g. --color-primary -> bg-primary, text-primary).
+ *
+ * The :root and .dark blocks define the actual color values using oklch.
+ * All colors MUST use oklch format.
+ *
+ * To add a new semantic color:
+ * 1. Add the variable to :root (light value) and .dark (dark value)
+ * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.129 0.042 264.695);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.129 0.042 264.695);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.129 0.042 264.695);
+  --primary: oklch(0.208 0.042 265.755);
+  --primary-foreground: oklch(0.984 0.003 247.858);
+  --secondary: oklch(0.968 0.007 247.896);
+  --secondary-foreground: oklch(0.208 0.042 265.755);
+  --muted: oklch(0.968 0.007 247.896);
+  --muted-foreground: oklch(0.554 0.046 257.417);
+  --accent: oklch(0.968 0.007 247.896);
+  --accent-foreground: oklch(0.208 0.042 265.755);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.984 0.003 247.858);
+  --border: oklch(0.929 0.013 255.508);
+  --input: oklch(0.929 0.013 255.508);
+  --ring: oklch(0.704 0.04 256.788);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.984 0.003 247.858);
+  --sidebar-foreground: oklch(0.129 0.042 264.695);
+  --sidebar-primary: oklch(0.208 0.042 265.755);
+  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-accent: oklch(0.968 0.007 247.896);
+  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
+  --sidebar-border: oklch(0.929 0.013 255.508);
+  --sidebar-ring: oklch(0.704 0.04 256.788);
+}
+
+.dark {
+  --background: oklch(0.129 0.042 264.695);
+  --foreground: oklch(0.984 0.003 247.858);
+  --card: oklch(0.208 0.042 265.755);
+  --card-foreground: oklch(0.984 0.003 247.858);
+  --popover: oklch(0.208 0.042 265.755);
+  --popover-foreground: oklch(0.984 0.003 247.858);
+  --primary: oklch(0.929 0.013 255.508);
+  --primary-foreground: oklch(0.208 0.042 265.755);
+  --secondary: oklch(0.279 0.041 260.031);
+  --secondary-foreground: oklch(0.984 0.003 247.858);
+  --muted: oklch(0.279 0.041 260.031);
+  --muted-foreground: oklch(0.704 0.04 256.788);
+  --accent: oklch(0.279 0.041 260.031);
+  --accent-foreground: oklch(0.984 0.003 247.858);
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.984 0.003 247.858);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.551 0.027 264.364);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.208 0.042 265.755);
+  --sidebar-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-accent: oklch(0.279 0.041 260.031);
+  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.551 0.027 264.364);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    font-family: var(--pp-font-sans);
+    font-feature-settings:
+      "ss01" on,
+      "cv11" on;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--pp-font-sans);
+  }
+
+  /* Display utility — applied per-element where editorial serif fits the moment */
+  .font-display {
+    font-family: var(--pp-font-display);
+    font-feature-settings:
+      "ss01" on,
+      "ss02" on,
+      "ss03" on,
+      "kern" on,
+      "liga" on,
+      "calt" on;
+    /* Fraunces opsz responds to font-size automatically (variable axis) */
+    font-optical-sizing: auto;
+    font-variation-settings: "SOFT" 30;
+    letter-spacing: -0.012em;
+  }
+
+  .font-display-tight {
+    font-family: var(--pp-font-display);
+    font-optical-sizing: auto;
+    font-variation-settings: "SOFT" 50;
+    letter-spacing: -0.025em;
+  }
+
+  /* Tabular numbers for dashboard metrics so they don't wobble between digits */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@theme inline {
+  --color-pp-teal: var(--pp-teal);
+  --color-pp-teal-deep: var(--pp-teal-deep);
+  --color-pp-teal-soft: var(--pp-teal-soft);
+  --color-pp-blue: var(--pp-blue);
+  --color-pp-alert: var(--pp-alert);
+  --color-pp-warning: var(--pp-warning);
+  --color-pp-warning-soft: var(--pp-warning-soft);
+  --color-pp-success: var(--pp-success);
+  --color-pp-elderly-bg: var(--pp-elderly-bg);
+  --color-pp-caregiver-bg: var(--pp-caregiver-bg);
+  --color-pp-ink: var(--pp-ink);
+  --font-sans: var(--pp-font-sans);
+  --font-display: var(--pp-font-display);
+  --font-mono: var(--pp-font-mono);
+  --animate-zone-pulse: zone-pulse 1.4s ease-in-out infinite;
+  --animate-wave: wave 2.4s ease-in-out infinite;
+  --animate-tap-bounce: tap-bounce 220ms ease-out;
+  --animate-slide-in: slide-in 360ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-fade-up: fade-up 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-view-fade: view-fade 300ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-amber-glow: amber-glow 2.6s ease-in-out infinite;
+}
+
+:root {
+  --pp-teal: oklch(0.72 0.11 192);
+  --pp-teal-deep: oklch(0.62 0.12 200);
+  --pp-teal-soft: oklch(0.72 0.11 192 / 0.22);
+  --pp-blue: oklch(0.66 0.13 240);
+  --pp-alert: oklch(0.72 0.18 25);
+  --pp-warning: oklch(0.83 0.16 80);
+  --pp-warning-soft: oklch(0.94 0.08 80);
+  --pp-success: oklch(0.78 0.16 160);
+  --pp-elderly-bg: oklch(0.985 0.01 80);
+  --pp-caregiver-bg: oklch(0.98 0.005 250);
+  --pp-ink: oklch(0.27 0.03 260);
+
+  /* Type — Inter for UI, Fraunces for editorial display moments.
+   * Chinese/Malay system fallbacks keep CJK strings looking native (Fraunces
+   * has no CJK glyphs; we let the OS substitute). */
+  --pp-font-sans:
+    "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --pp-font-display:
+    "Fraunces", "Iowan Old Style", "Apple Garamond", "Baskerville", "Times New Roman",
+    "Droid Serif", Times, "Source Serif Pro", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+    serif;
+  --pp-font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+}
+
+@keyframes zone-pulse {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes wave {
+  0%,
+  60%,
+  100% {
+    transform: rotate(0deg);
+  }
+  10% {
+    transform: rotate(14deg);
+  }
+  20% {
+    transform: rotate(-8deg);
+  }
+  30% {
+    transform: rotate(14deg);
+  }
+  40% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+}
+
+@keyframes tap-bounce {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.97);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes view-fade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes amber-glow {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 0 oklch(0.83 0.16 80 / 0.45),
+      0 8px 24px -10px oklch(0.83 0.16 80 / 0.5);
+  }
+  50% {
+    box-shadow:
+      0 0 0 12px oklch(0.83 0.16 80 / 0),
+      0 12px 30px -8px oklch(0.83 0.16 80 / 0.55);
+  }
+}
+
+/* Premium gradient utilities for PainPoint */
+.pp-elderly-page {
+  background:
+    radial-gradient(120% 60% at 50% -10%, oklch(0.97 0.04 60) 0%, transparent 60%),
+    radial-gradient(80% 60% at 100% 100%, oklch(0.96 0.03 195 / 0.55) 0%, transparent 55%),
+    linear-gradient(180deg, oklch(0.99 0.01 80) 0%, oklch(1 0 0) 100%);
+}
+
+.pp-caregiver-page {
+  background:
+    radial-gradient(80% 50% at 0% 0%, oklch(0.96 0.03 195 / 0.55) 0%, transparent 55%),
+    radial-gradient(100% 60% at 100% 100%, oklch(0.96 0.03 240 / 0.5) 0%, transparent 60%),
+    linear-gradient(180deg, oklch(0.99 0.005 250) 0%, oklch(1 0 0) 100%);
+}
+
+.pp-card {
+  background: linear-gradient(180deg, oklch(1 0 0) 0%, oklch(0.995 0.003 80) 100%);
+  border: 1px solid oklch(0.93 0.01 80);
+  box-shadow:
+    0 1px 0 oklch(1 0 0 / 0.6) inset,
+    0 1px 2px oklch(0.27 0.03 260 / 0.05),
+    0 8px 24px -16px oklch(0.27 0.03 260 / 0.18);
+}
+
+.pp-card-glow {
+  background: linear-gradient(180deg, oklch(1 0 0) 0%, oklch(0.99 0.01 195) 100%);
+  border: 1px solid oklch(0.92 0.02 195);
+  box-shadow:
+    0 1px 0 oklch(1 0 0 / 0.6) inset,
+    0 0 0 1px oklch(0.72 0.11 192 / 0.06),
+    0 12px 32px -16px oklch(0.62 0.12 200 / 0.25),
+    0 4px 14px -10px oklch(0.27 0.03 260 / 0.2);
+}
+
+.pp-soft-button {
+  background: linear-gradient(180deg, oklch(1 0 0) 0%, oklch(0.985 0.005 80) 100%);
+  box-shadow:
+    0 1px 0 oklch(1 0 0 / 0.6) inset,
+    0 1px 2px oklch(0.27 0.03 260 / 0.06),
+    0 4px 10px -6px oklch(0.27 0.03 260 / 0.15);
+  transition:
+    transform 160ms ease,
+    box-shadow 200ms ease,
+    border-color 200ms ease;
+}
+
+.pp-soft-button:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 1px 0 oklch(1 0 0 / 0.6) inset,
+    0 2px 4px oklch(0.27 0.03 260 / 0.06),
+    0 10px 22px -10px oklch(0.27 0.03 260 / 0.22);
+}
+
+.pp-soft-button:active {
+  animation: tap-bounce 220ms ease-out;
+}
+
+.pp-primary-button {
+  background: linear-gradient(180deg, oklch(0.78 0.1 192) 0%, oklch(0.62 0.12 200) 100%);
+  color: white;
+  box-shadow:
+    0 1px 0 oklch(1 0 0 / 0.25) inset,
+    0 8px 18px -8px oklch(0.62 0.12 200 / 0.55),
+    0 2px 4px oklch(0.62 0.12 200 / 0.25);
+  transition:
+    transform 160ms ease,
+    box-shadow 200ms ease,
+    filter 200ms ease;
+}
+
+.pp-primary-button:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.04);
+  box-shadow:
+    0 1px 0 oklch(1 0 0 / 0.25) inset,
+    0 14px 26px -10px oklch(0.62 0.12 200 / 0.65),
+    0 2px 6px oklch(0.62 0.12 200 / 0.3);
+}
+
+.pp-primary-button:active {
+  animation: tap-bounce 220ms ease-out;
+}
+
+.pp-success-button {
+  background: linear-gradient(180deg, oklch(0.85 0.16 160) 0%, oklch(0.7 0.18 160) 100%);
+  color: white;
+  box-shadow:
+    0 1px 0 oklch(1 0 0 / 0.3) inset,
+    0 8px 22px -8px oklch(0.7 0.18 160 / 0.55);
+  transition:
+    transform 160ms ease,
+    box-shadow 200ms ease,
+    filter 200ms ease;
+}
+
+.pp-success-button:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.04);
+}
+.pp-success-button:active {
+  animation: tap-bounce 220ms ease-out;
+}
+
+.pp-amber-card {
+  background: linear-gradient(180deg, oklch(0.98 0.06 80) 0%, oklch(0.95 0.09 80) 100%);
+  border: 1px solid oklch(0.85 0.12 80);
+  box-shadow:
+    0 1px 0 oklch(1 0 0 / 0.6) inset,
+    0 8px 22px -12px oklch(0.7 0.16 80 / 0.45);
+}
+
+.pp-readings-card {
+  background: linear-gradient(180deg, oklch(0.97 0.04 195) 0%, oklch(0.96 0.05 220) 100%);
+  border: 1px solid oklch(0.84 0.06 200);
+  box-shadow:
+    0 1px 0 oklch(1 0 0 / 0.7) inset,
+    0 8px 22px -12px oklch(0.62 0.12 200 / 0.4);
+}
+
+.pp-metric-card {
+  position: relative;
+  background: linear-gradient(180deg, oklch(1 0 0) 0%, oklch(0.99 0.005 240) 100%);
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  box-shadow:
+    0 1px 2px oklch(0.27 0.03 260 / 0.05),
+    0 8px 24px -16px oklch(0.27 0.03 260 / 0.18);
+}
+
+.pp-metric-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, oklch(0.72 0.11 192 / 0.55), oklch(0.66 0.13 240 / 0.45));
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.pp-heat-cell {
+  box-shadow:
+    0 1px 0 oklch(1 0 0 / 0.35) inset,
+    0 1px 2px oklch(0.27 0.03 260 / 0.12);
+}
+
+.pp-divider-glow {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    oklch(0.72 0.11 192 / 0.55) 30%,
+    oklch(0.66 0.13 240 / 0.55) 70%,
+    transparent 100%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pp-soft-button:active,
+  .pp-primary-button:active,
+  .pp-success-button:active {
+    animation: none;
+  }
+}
+
+/* AI thinking indicator */
+@keyframes ai-dot-bounce {
+  0%,
+  80%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  40% {
+    transform: translateY(-7px);
+    opacity: 1;
+  }
+}
+
+@keyframes ai-question-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+.pp-ai-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--pp-teal);
+  animation: ai-dot-bounce 1.2s ease-in-out infinite;
+}
+
+.pp-ai-dot:nth-child(1) {
+  animation-delay: 0ms;
+}
+.pp-ai-dot:nth-child(2) {
+  animation-delay: 180ms;
+}
+.pp-ai-dot:nth-child(3) {
+  animation-delay: 360ms;
+}
+
+.pp-ai-question-reveal {
+  animation: ai-question-reveal 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pp-ai-dot {
+    animation: none;
+    opacity: 0.7;
+  }
+  .pp-ai-question-reveal {
+    animation: none;
+  }
+}
+
+/* Leaflet pin markers — color-controlled via CSS, no PNG sprites */
+.pp-pin {
+  width: 28px;
+  height: 36px;
+  display: block;
+  position: relative;
+  filter: drop-shadow(0 4px 6px oklch(0.27 0.03 260 / 0.35));
+}
+
+.pp-pin svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.pp-pin-teal svg path.pin-body {
+  fill: var(--pp-teal);
+  stroke: oklch(1 0 0 / 0.85);
+}
+
+.pp-pin-blue svg path.pin-body {
+  fill: var(--pp-blue);
+  stroke: oklch(1 0 0 / 0.85);
+}
+
+.pp-pin-rose svg path.pin-body {
+  fill: var(--pp-alert);
+  stroke: oklch(1 0 0 / 0.85);
+}
+
+.pp-pin svg circle.pin-dot {
+  fill: oklch(1 0 0);
+}
+
+/* Override Leaflet defaults to fit the design system */
+.leaflet-container {
+  font-family: inherit;
+  background: oklch(0.97 0.01 80);
+}
+
+.leaflet-container a.leaflet-popup-close-button {
+  color: oklch(0.27 0.03 260 / 0.6);
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 14px;
+  box-shadow: 0 12px 32px -16px oklch(0.27 0.03 260 / 0.35);
+  border: 1px solid oklch(0.93 0.01 80);
+  padding: 0;
+}
+
+.leaflet-popup-content {
+  margin: 10px 12px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--pp-ink);
+}
+
+.leaflet-control-attribution {
+  font-size: 9px;
+  background: oklch(1 0 0 / 0.85) !important;
+  color: oklch(0.55 0.04 257) !important;
+}
+
+.leaflet-bar a,
+.leaflet-bar a:hover {
+  border-color: oklch(0.93 0.01 80);
+  color: var(--pp-ink);
+}
+
+/* Voice input — pulsing red recording indicator */
+@keyframes mic-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 0 oklch(0.72 0.18 25 / 0.55),
+      0 8px 24px -10px oklch(0.72 0.18 25 / 0.5);
+  }
+  50% {
+    box-shadow:
+      0 0 0 14px oklch(0.72 0.18 25 / 0),
+      0 12px 30px -8px oklch(0.72 0.18 25 / 0.55);
+  }
+}
+
+.pp-mic-pulse {
+  animation: mic-pulse 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pp-mic-pulse {
+    animation: none;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+ * PainPoint toaster skin (Sonner)
+ *
+ * Goal: a calm, frosted-glass card that matches the design system rather than
+ * the loud `richColors` defaults. Per-type accent strip on the left edge,
+ * Fraunces title + Inter description, soft layered shadow, gentle motion.
+ *
+ * Selectors are nested under `.pp-toaster` so this never leaks to any other
+ * Sonner instance that might appear in third-party content.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+.pp-toaster {
+  --pp-toast-bg: oklch(0.99 0.005 80 / 0.9);
+  --pp-toast-fg: oklch(0.27 0.03 260);
+  --pp-toast-muted: oklch(0.55 0.04 257);
+  --pp-toast-border: oklch(0.93 0.01 80 / 0.7);
+  --pp-toast-accent: var(--pp-teal);
+
+  font-family: var(--pp-font-sans);
+  --width: 380px;
+}
+
+/* Card surface */
+.pp-toaster [data-sonner-toast].pp-toast {
+  /* Layout */
+  width: var(--width);
+  max-width: calc(100vw - 32px);
+  padding: 12px 14px 12px 16px;
+  border-radius: 16px;
+  align-items: flex-start;
+  gap: 10px;
+
+  /* Skin */
+  background: linear-gradient(180deg, oklch(1 0 0 / 0.88) 0%, oklch(0.99 0.005 80 / 0.85) 100%);
+  color: var(--pp-toast-fg);
+  border: 1px solid var(--pp-toast-border);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  box-shadow:
+    0 1px 0 oklch(1 0 0 / 0.7) inset,
+    0 0 0 1px oklch(1 0 0 / 0.4) inset,
+    0 12px 32px -16px oklch(0.27 0.03 260 / 0.28),
+    0 4px 12px -8px oklch(0.27 0.03 260 / 0.18);
+  position: relative;
+  overflow: hidden;
+  transform-origin: 50% 0%;
+}
+
+/* Accent strip on the left */
+.pp-toaster [data-sonner-toast].pp-toast::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: linear-gradient(180deg, var(--pp-toast-accent), oklch(0.62 0.12 200));
+  opacity: 0.85;
+}
+
+/* Per-type accent + icon ring */
+.pp-toaster [data-sonner-toast][data-type="success"].pp-toast {
+  --pp-toast-accent: oklch(0.7 0.16 160);
+}
+.pp-toaster [data-sonner-toast][data-type="error"].pp-toast {
+  --pp-toast-accent: oklch(0.62 0.2 25);
+}
+.pp-toaster [data-sonner-toast][data-type="warning"].pp-toast {
+  --pp-toast-accent: oklch(0.7 0.16 80);
+}
+.pp-toaster [data-sonner-toast][data-type="info"].pp-toast {
+  --pp-toast-accent: var(--pp-teal);
+}
+
+/* Icon container */
+.pp-toaster [data-sonner-toast] .pp-toast-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+}
+
+/* Title — Fraunces, slightly tight */
+.pp-toaster [data-sonner-toast] .pp-toast-title {
+  font-family: var(--pp-font-display);
+  font-weight: 600;
+  font-size: 14.5px;
+  line-height: 1.25;
+  letter-spacing: -0.012em;
+  color: var(--pp-toast-fg);
+}
+
+/* Description — Inter, muted, smaller */
+.pp-toaster [data-sonner-toast] .pp-toast-description {
+  font-family: var(--pp-font-sans);
+  font-weight: 400;
+  font-size: 12.5px;
+  line-height: 1.45;
+  margin-top: 2px;
+  color: var(--pp-toast-muted);
+}
+
+/* Close button — softened */
+.pp-toaster [data-sonner-toast] .pp-toast-close {
+  background: oklch(0.99 0.005 80 / 0.7);
+  border: 1px solid var(--pp-toast-border);
+  color: var(--pp-toast-muted);
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  transition:
+    background 160ms ease,
+    color 160ms ease;
+  backdrop-filter: blur(8px);
+}
+
+.pp-toaster [data-sonner-toast] .pp-toast-close:hover {
+  background: oklch(1 0 0);
+  color: var(--pp-toast-fg);
+}
+
+/* Action / cancel buttons */
+.pp-toaster [data-sonner-toast] .pp-toast-action {
+  background: linear-gradient(180deg, oklch(0.78 0.1 192), oklch(0.62 0.12 200));
+  color: white;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 12px;
+}
+
+.pp-toaster [data-sonner-toast] .pp-toast-cancel {
+  background: oklch(0.96 0.01 80);
+  color: var(--pp-toast-fg);
+  font-weight: 500;
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 12px;
+  border: 1px solid var(--pp-toast-border);
+}
+
+/* Entrance / exit motion (Sonner uses opacity + transform internally;
+ * we sharpen the easing curve to match the rest of the app). */
+.pp-toaster [data-sonner-toast].pp-toast {
+  transition:
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 220ms ease,
+    height 320ms cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+/* Subtle internal sheen on success */
+.pp-toaster [data-sonner-toast][data-type="success"].pp-toast::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(120% 60% at 0% 0%, oklch(0.78 0.16 160 / 0.08), transparent 60%);
+  pointer-events: none;
+}
+
+/* Critical (used for emergency-from-voice + permission-denied flows).
+ * Sonner doesn't expose a custom type, so we override error to feel firmer. */
+.pp-toaster [data-sonner-toast][data-type="error"].pp-toast {
+  background: linear-gradient(
+    180deg,
+    oklch(0.99 0.01 25 / 0.92) 0%,
+    oklch(0.97 0.03 25 / 0.88) 100%
+  );
+  border-color: oklch(0.85 0.05 25 / 0.7);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pp-toaster [data-sonner-toast].pp-toast {
+    transition: opacity 120ms ease !important;
+  }
+}
+
+/* Mobile — full-width on narrow viewports */
+@media (max-width: 480px) {
+  .pp-toaster {
+    --width: calc(100vw - 24px);
+  }
+  .pp-toaster [data-sonner-toast].pp-toast {
+    border-radius: 14px;
+    padding: 11px 12px 11px 14px;
+  }
+}
